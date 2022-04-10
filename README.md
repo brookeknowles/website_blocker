@@ -11,5 +11,5 @@ A Chrome extension that blocks distracting websites to increase productivity.
 
 
 ### To Do:
-- fix the problem with the witness image not showing up
+- add functionality to count how many times a blocked website is accessed in a day
 - add functionality to add/remove 'blocked' websites from chrome

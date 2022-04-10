@@ -1,11 +1,12 @@
-const blockedSites = ["www.facebook.com", "www.youtube.com", "www.last.fm", "www.reddit.com"];
+const blockedSites = ["www.facebook.com", "www.last.fm"];
+let blockedSitesCount = 0; // keeps track of how many times in a given day the user tries to go on a blocked site
 
 const generateStyles = () => {
     return `
      <style>
   body {
-    background: #ff1a1a;
-    color: #fff;
+    background: #e5eaf0;
+    color: #a3a3ca;
     font-family: sans-serif;
     max-height: 700px;
     overflow: hidden;
@@ -31,6 +32,12 @@ const generateStyles = () => {
     position: relative;
     font-size: 20px;
   }
+  ._3 {
+    text-align: center;
+    display: block;
+    position: relative;
+    font-size: 30px;
+  }
   .text {
     font-size: 70px;
     text-align: center;
@@ -46,39 +53,31 @@ const generateStyles = () => {
   hr {
     padding: 0;
     border: none;
-    border-top: 5px solid #fff;
-    color: #fff;
+    border-top: 5px solid #a3a3ca;
+    color: #a3a3ca;
     text-align: center;
     margin: 0px auto;
     width: 420px;
     height: 10px;
     z-index: -10;
   }
-  
-  hr:after {
-    display: inline-block;
-    position: relative;
-    top: -0.75em;
-    font-size: 2em;
-    padding: 0 0.2em;
-    background: #33cc99;
-  }
-  
-  
-  
    </style>
    
     `;
 };
 
-const generateHTML = () => {
+const generateHTML = (blockedSitesCount) => {
     return `
 
     <div class='c'>
-      <img src="assets/Witness.png" alt="Witness Album Cover" style="width:400px;height:400px;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Katy_Perry_-_Witness_%28Official_Album_Cover%29.png" alt="Witness Album Cover" style="width:400px;height:400px;">
       <hr>
-        <div class='_1'>IN YOUR WITNESS ERA</div>
-      <div class='_2'>EXAMPLE #25879</div>
+      <div class='_1'>IN YOUR WITNESS ERA</div>
+      <br>
+      <div class='_2'>EXAMPLE #${blockedSitesCount} (today)</div>
+      <br>
+      <div class='_3'>Get back to studying ❤️</div>
+
   </div>
     
     `;
@@ -86,6 +85,9 @@ const generateHTML = () => {
 
 // check if the current website is one of the blocked sites
 if (blockedSites.indexOf(window.location.hostname) >= 0){
+    blockedSitesCount++;
     document.head.innerHTML = generateStyles();
-    document.body.innerHTML = generateHTML();
+    document.body.innerHTML = generateHTML(blockedSitesCount);
 }
+
+// reset blockedSitesCount every 24 hours
